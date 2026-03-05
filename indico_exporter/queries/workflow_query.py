@@ -1,5 +1,7 @@
+from indico_exporter.client.indico_client import IndicoAPIClient
+
 WORKFLOW_QUERY = """
-query GetWorkflow($id: Int!) {
+query Workflow($id: Int!) {
   workflow(id: $id) {
     components {
       ... on ModelGroupComponent {
@@ -19,3 +21,11 @@ query GetWorkflow($id: Int!) {
   }
 }
 """
+
+
+def fetch_workflow(workflow_id: int):
+    client = IndicoAPIClient()
+
+    variables = {"id": workflow_id}
+
+    return client.query(WORKFLOW_QUERY, variables)
